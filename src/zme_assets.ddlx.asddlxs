@@ -1,0 +1,115 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: 'Activo',
+    typeNamePlural: 'Activos',
+    imageUrl: 'Attachment',
+    title: { type: #STANDARD, value: 'assetid' }     // El valor es el nombre del elemento, sin comillas
+  }
+}
+
+annotate entity ZC_ASSETS with
+{
+  /* =========================
+     Facets (navegación lateral)
+     ========================= */
+  @UI.facet: [
+    { id: 'idAsset', type: #IDENTIFICATION_REFERENCE, label: 'Detalles del Activo', position: 10 },
+    { id: 'idUser',  type: #FIELDGROUP_REFERENCE,      label: 'Asignación actual', position: 20, targetQualifier: 'UserGroup' },
+    { id: 'Upload',  type: #FIELDGROUP_REFERENCE,      label: 'Adjuntos / Factura', position: 30, targetQualifier: 'Upload', purpose: #STANDARD },
+    { id: 'idLog',   type: #LINEITEM_REFERENCE,        label: 'Historial de Mantenimiento', position: 40, targetElement: '_Logs', purpose: #STANDARD }
+  ]
+
+  /* =========================
+     Clave / UUID
+     ========================= */
+  @UI: {
+    lineItem:       [ { position: 10, label: 'Id' } ],
+    identification: [ { position: 10, label: 'Id' } ]
+  }
+  assetuuid;
+
+  /* =========================
+     Id del activo + Acción
+     ========================= */
+    @UI: {
+      lineItem:      [ { position: 20, type: #FOR_ACTION, dataAction: 'darDeBaja', label: 'Dar de Baja' } ],  -- Botón en el detalle
+     identification: [ { position: 20 , label:'Nombre activo' },
+                       { position: 20,type: #FOR_ACTION, dataAction: 'darDeBaja', label: 'Dar de Baja' } ],
+     selectionField: [ { position: 20 } ]
+  }
+  assetid;
+
+
+  /* =========================
+     Categoría (con texto)
+     ========================= */
+  @UI: {
+    lineItem:       [ { position: 30, label: 'Categoría' } ],
+    identification: [ { position: 30, label: 'Categoría' } ],
+    selectionField: [ { position: 30 } ]
+  }
+  @UI.textArrangement: #TEXT_LAST
+  category;
+
+  /* =========================
+     Marca
+     ========================= */
+  @UI: {
+    lineItem:       [ { position: 40, label: 'Marca' } ],
+    identification: [ { position: 40, label: 'Marca' } ]
+  }
+  brand;
+
+  /* =========================
+     Fecha de compra
+     ========================= */
+  @UI: {
+    identification: [ { position: 50, label: 'Fecha de compra' } ]
+  }
+  purchasedate; // Asegúrate que el nombre del campo sea correcto en la entidad
+
+  /* =========================
+     Responsable (Field Group)
+     ========================= */
+  @UI: {
+    lineItem:  [ { position: 60, label: 'Responsable' } ],
+    fieldGroup:[ { qualifier: 'UserGroup', position: 10, label: 'Responsable' } ]
+  }
+  assignedto;
+
+  /* =========================
+     Estado con criticalidad
+     ========================= */
+  @UI.textArrangement: #TEXT_LAST
+  @UI.lineItem: [
+    {
+      position: 70,
+      label: 'Estado',
+      criticality: 'StatusCriticality',                // Debe existir un elemento calculado o un valor fijo
+      criticalityRepresentation: #WITH_ICON
+    }
+  ]
+  @UI.identification: [ { position: 60, label: 'Estado', criticality: 'StatusCriticality',                // Debe existir un elemento calculado o un valor fijo
+      criticalityRepresentation: #WITH_ICON } ]
+  status;
+
+
+  /* =========================
+     Adjuntos (Field Group)
+     ========================= */
+  @UI.fieldGroup: [ { position: 70, qualifier: 'Upload', label: 'Adjunto' } ]
+  @UI.hidden: #(IsAttachmentEmpte)
+  Attachment;
+
+  @UI.hidden: true
+  Mimetype;
+
+  @UI.hidden: true
+  Filename;
+    @UI: {
+    lineItem:       [ { position: 80, label: 'Fecha de modificacion' } ],
+    identification: [ { position: 80, label: 'Fecha de modificacion' } ]
+  }
+    fechamod;
+}

@@ -1,0 +1,30 @@
+@Metadata.layer: #CORE
+annotate entity ZC_LOG
+    with 
+{
+   @UI.facet: [
+    { id: 'LogSett', type: #IDENTIFICATION_REFERENCE, label: 'Detalles del Mantenimiento', position: 10 }
+    ]
+ 
+  @UI.hidden: true
+  loguuid;
+
+  @UI.hidden: true
+  parent_uuid;
+
+  @UI: { lineItem:       [ { position: 10, label: 'Fecha Servicio' } ],
+         identification: [ { position: 10, label: 'Fecha Servicio' } ] }
+  maintenancedate;
+
+  @UI: { lineItem:       [ { position: 20, label: 'Tipo Servicio' } ],
+         identification: [ { position: 20, label: 'Tipo Servicio' } ] }
+  servicetype;
+
+  @UI: { lineItem:       [ { position: 30, label: 'Costo' } ],
+         identification: [ { position: 30, label: 'Costo' } ] }
+  cost;
+
+  @UI: { lineItem:       [ { position: 40, label: 'Comentarios' } ],
+         identification: [ { position: 40, label: 'Comentarios' } ] }
+  remarks;
+}

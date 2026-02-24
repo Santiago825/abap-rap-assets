@@ -1,0 +1,7 @@
+@EndUserText.label: 'Service definition - servicio de assets'
+define service ZSB_ASSETS {
+  expose ZC_ASSETS    as Assets;
+  expose ZC_LOG       as Logs;
+  expose ZI_STATUS_VH as statusVH;
+  expose ZC_CATEGORY  as Category;
+}

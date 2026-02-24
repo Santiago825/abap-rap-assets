@@ -1,0 +1,45 @@
+managed implementation in class zbp_i_assets unique;
+strict ( 2 );
+define behavior for ZI_ASSETS //alias <alias_name>
+persistent table zit_assets
+lock master
+authorization master ( instance )
+
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+
+
+  action ( features : instance ) darDeBaja result [1] $self;
+  validation validateCategory on save { create;update; field category;}
+  validation validarStaus on save {create;update; field status;}
+  determination setFechaMod on modify {update;}
+
+  field (mandatory) category;
+  field ( numbering : managed,readonly: create ) assetuuid;
+  field( readonly ) fechamod;
+  association _Logs { create; }
+  side effects { field status affects field StatusCriticality;}
+
+
+
+
+
+
+}
+
+define behavior for ZI_LOG //alias <alias_name>
+persistent table zit_logs
+lock dependent by _Asset
+authorization dependent by _Asset
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly :update ) parent_uuid;
+  field ( numbering : managed,readonly: update ) loguuid;
+  association _Asset;
+
+}

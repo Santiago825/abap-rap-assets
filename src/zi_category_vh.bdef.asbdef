@@ -1,0 +1,22 @@
+managed implementation in class zbp_i_category_vh unique;
+strict ( 2 );
+
+define behavior for ZI_CATEGORY_VH //alias <alias_name>
+persistent table zcat_asset
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly:update ) Category;
+
+  mapping for zcat_asset
+  {
+    Category = cat_id;
+    CategoryText = description;
+  }
+
+
+}
