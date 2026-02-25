@@ -18,13 +18,26 @@ authorization master ( instance )
   determination setFechaMod on modify {update;}
 
   field (mandatory) category;
-  field ( numbering : managed,readonly: create ) assetuuid;
+  field ( numbering : managed,readonly ) assetuuid;
   field( readonly ) fechamod;
   association _Logs { create; }
   side effects { field status affects field StatusCriticality;}
 
 
-
+mapping for zit_assets
+{
+    Attachment = attachment;
+    status = status;
+    brand = brand;
+    category = category;
+    Filename = filename;
+    Mimetype = mimetype;
+    assetid = assetid;
+    assetuuid = assetuuid;
+    assignedto = assignedto;
+    fechamod = fechamod;
+    puchasedate = puchasedate;
+}
 
 
 
@@ -41,5 +54,15 @@ authorization dependent by _Asset
   field ( readonly :update ) parent_uuid;
   field ( numbering : managed,readonly: update ) loguuid;
   association _Asset;
+  mapping for zit_logs
+  {
+    loguuid = loguuid;
+    cost = cost;
+    maintenancedate = maintenancedate;
+    parent_uuid = parent_uuid;
+    remarks = remarks;
+    servicetype = servicetype;
+    currency = currency;
+  }
 
 }

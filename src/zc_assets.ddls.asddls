@@ -28,9 +28,18 @@ define root view entity ZC_ASSETS
     local_last_changed_at,
 
     fechamod,
-        @Semantics.largeObject: { mimeType: 'MimeType',   //case-sensitive
+    @EndUserText.label: 'Estado critico'
+    @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_ASSETS_CALC_EXIT' 
+    virtual estadoCritico : abap.char( 20 ),
+    @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_ASSETS_CALC_EXIT' 
+    
+    virtual criticalityCode : abap.int1,
+    @Semantics.largeObject: { mimeType: 'MimeType',   //case-sensitive
                        fileName: 'FileName',   //case-sensitive
-                       acceptableMimeTypes: ['image/png', 'image/jpeg'],
+                       acceptableMimeTypes: ['image/png', 'image/jpeg','application/pdf', 
+                       'application/vnd.ms-excel', 
+                       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                       ],
                        contentDispositionPreference: #ATTACHMENT }
     Attachment,
     

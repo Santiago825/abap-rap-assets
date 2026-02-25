@@ -1,4 +1,4 @@
-@Metadata.layer: #CORE
+@Metadata.layer: #CUSTOMER
 @UI: {
   headerInfo: {
     typeName: 'Activo',
@@ -32,11 +32,11 @@ annotate entity ZC_ASSETS with
   /* =========================
      Id del activo + Acción
      ========================= */
-    @UI: {
-      lineItem:      [ { position: 20, type: #FOR_ACTION, dataAction: 'darDeBaja', label: 'Dar de Baja' } ],  -- Botón en el detalle
-     identification: [ { position: 20 , label:'Nombre activo' },
-                       { position: 20,type: #FOR_ACTION, dataAction: 'darDeBaja', label: 'Dar de Baja' } ],
-     selectionField: [ { position: 20 } ]
+  @UI: {
+    lineItem:      [ { position: 20, type: #FOR_ACTION, dataAction: 'darDeBaja', label: 'Dar de Baja' } ],  -- Botón en el detalle
+   identification: [ { position: 20 , label:'Nombre activo' },
+                     { position: 20,type: #FOR_ACTION, dataAction: 'darDeBaja', label: 'Dar de Baja' } ],
+   selectionField: [ { position: 20 } ]
   }
   assetid;
 
@@ -47,7 +47,7 @@ annotate entity ZC_ASSETS with
   @UI: {
     lineItem:       [ { position: 30, label: 'Categoría' } ],
     identification: [ { position: 30, label: 'Categoría' } ],
-    selectionField: [ { position: 30 } ]
+    selectionField: [{ position: 30 }]
   }
   @UI.textArrangement: #TEXT_LAST
   category;
@@ -74,7 +74,8 @@ annotate entity ZC_ASSETS with
      ========================= */
   @UI: {
     lineItem:  [ { position: 60, label: 'Responsable' } ],
-    fieldGroup:[ { qualifier: 'UserGroup', position: 10, label: 'Responsable' } ]
+    fieldGroup:[ { qualifier: 'UserGroup', position: 10, label: 'Responsable' } ],
+    selectionField: [{ position: 60 }]
   }
   assignedto;
 
@@ -94,22 +95,19 @@ annotate entity ZC_ASSETS with
       criticalityRepresentation: #WITH_ICON } ]
   status;
 
-
-  /* =========================
-     Adjuntos (Field Group)
-     ========================= */
-  @UI.fieldGroup: [ { position: 70, qualifier: 'Upload', label: 'Adjunto' } ]
-  @UI.hidden: #(IsAttachmentEmpte)
+  @UI.fieldGroup: [ {  qualifier: 'Upload', label: 'Adjunto' } ]
   Attachment;
 
   @UI.hidden: true
   Mimetype;
-
   @UI.hidden: true
   Filename;
-    @UI: {
-    lineItem:       [ { position: 80, label: 'Fecha de modificacion' } ],
-    identification: [ { position: 80, label: 'Fecha de modificacion' } ]
+  @UI: {
+  lineItem:       [ { position: 90, label: 'Fecha de modificacion' } ],
+  identification: [ { position: 90, label: 'Fecha de modificacion' } ]
   }
-    fechamod;
+  fechamod;
+  @UI.lineItem: [{ position: 100 , label: 'Estado critico',criticality: 'criticalityCode'  }]
+  @UI.identification: [{ position: 100 , label: 'Estado critico',criticality: 'criticalityCode' }]
+  estadoCritico;
 }
